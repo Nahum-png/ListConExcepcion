@@ -50,5 +50,19 @@ public class Main {
 
             System.out.println(numero);
         }
+
+        ArrayList<String> jovenes = new ArrayList<>();
+
+        jovenes.add("keila");
+        jovenes.add("Nahum");
+        jovenes.add("Yehoshua");
+
+        ArrayList<String>.Iterator jovenesIterator = jovenes.getIterator();
+
+        while(jovenesIterator.hasNext()){
+            String young = jovenesIterator.next();
+
+            System.out.println(young);
+        }
     }
 }

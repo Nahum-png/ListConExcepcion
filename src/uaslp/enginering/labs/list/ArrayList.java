@@ -1,5 +1,7 @@
 package uaslp.enginering.labs.list;
 
+import java.util.NoSuchElementException;
+
 public class ArrayList<T> {
 
     public enum InsertPosition {
@@ -53,6 +55,7 @@ public class ArrayList<T> {
                 break;
             }
         }
+        throw new NoSuchElementException("El elemento no se encuentra");
     }
 
     public void delete(int index) {
@@ -60,6 +63,7 @@ public class ArrayList<T> {
             lastIndex--;
             System.arraycopy(elements, index + 1, elements, index, lastIndex - index);
         }
+        throw new IndexOutOfBoundsException("El indice no existe");
     }
 
     public Iterator getIterator() {
@@ -71,16 +75,19 @@ public class ArrayList<T> {
     }
 
     public T getAt(int index) {
-        return index < lastIndex ? (T)elements[index] : null;
+        if(index < lastIndex){
+           return (T)elements[index];
+        }
+        throw new IndexOutOfBoundsException("El indice no existe");
     }
 
     public void insert(T reference, T newStudent, InsertPosition insertPosition) {
-
         if (lastIndex == elements.length) {
             increaseArraySize();
         }
 
         for (int index = 0; index < lastIndex; index++) {
+
             if (elements[index].equals(reference)) {
                 if (insertPosition.equals(InsertPosition.BEFORE)) {
                     for (int j = lastIndex; j > index; j--) {
@@ -93,10 +100,11 @@ public class ArrayList<T> {
                     }
                     elements[index + 1] = newStudent;
                 }
+                lastIndex++;
                 break;
             }
         }
-        lastIndex++;
+        throw new NoSuchElementException("El elemento reference no se encuentra");
     }
 
     private void increaseArraySize() {

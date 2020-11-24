@@ -3,6 +3,8 @@ package uaslp.enginering.labs.list;
 import org.junit.jupiter.api.Test;
 import uaslp.enginering.labs.model.Student;
 
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ArrayListTest {
@@ -62,13 +64,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.delete(0);
-
-        // Then:
-        assertEquals(2, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Israel");
-        assertEquals(arrayList.getAt(1).getName(), "Francisco");
+        // When - Then:
+        assertThrows(IndexOutOfBoundsException.class,()-> arrayList.delete(0),"El indice no existe");
     }
 
     @Test
@@ -80,13 +77,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.delete(2);
-
-        // Then:
-        assertEquals(2, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
+        // When - Then:
+        assertThrows(IndexOutOfBoundsException.class,()->arrayList.delete(2),"El indice no existe");
     }
 
     @Test
@@ -98,13 +90,9 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.delete(1);
+        // When - Then:
 
-        // Then:
-        assertEquals(2, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Francisco");
+        assertThrows(IndexOutOfBoundsException.class,()->arrayList.delete(1),"El indice no existe");
     }
 
     @Test
@@ -116,14 +104,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.delete(-1);
-
-        // Then:
-        assertEquals(3, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
-        assertEquals(arrayList.getAt(2).getName(), "Francisco");
+        // When - Then:
+        assertThrows(IndexOutOfBoundsException.class,()->arrayList.delete(-1),"El indice no existe");
     }
 
     @Test
@@ -135,14 +117,9 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.delete(4);
+        // When - Then:
 
-        // Then:
-        assertEquals(3, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
-        assertEquals(arrayList.getAt(2).getName(), "Francisco");
+        assertThrows(IndexOutOfBoundsException.class,()->arrayList.delete(4),"El indice no existe");
     }
 
     @Test
@@ -150,20 +127,12 @@ public class ArrayListTest {
         // Given:
         ArrayList<Student> arrayList = new ArrayList<>();
         Student reference = new Student("Ivan");
-
         arrayList.add(reference);
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.BEFORE);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Lupita");
-        assertEquals(arrayList.getAt(1).getName(), "Ivan");
-        assertEquals(arrayList.getAt(2).getName(), "Israel");
-        assertEquals(arrayList.getAt(3).getName(), "Francisco");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference,new Student("Lupita"),ArrayList.InsertPosition.BEFORE),"El elemento reference no se encuentra");
     }
 
     @Test
@@ -176,15 +145,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(reference);
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.BEFORE);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
-        assertEquals(arrayList.getAt(2).getName(), "Lupita");
-        assertEquals(arrayList.getAt(3).getName(), "Francisco");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference,new Student("Lupita"),ArrayList.InsertPosition.BEFORE));
     }
 
     @Test
@@ -197,15 +159,8 @@ public class ArrayListTest {
         arrayList.add(reference);
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.BEFORE);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Lupita");
-        assertEquals(arrayList.getAt(2).getName(), "Israel");
-        assertEquals(arrayList.getAt(3).getName(), "Francisco");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference, new Student("Lupita"),ArrayList.InsertPosition.BEFORE));
     }
 
     @Test
@@ -218,15 +173,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.AFTER);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Lupita");
-        assertEquals(arrayList.getAt(2).getName(), "Israel");
-        assertEquals(arrayList.getAt(3).getName(), "Francisco");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference, new Student("LUpita"),ArrayList.InsertPosition.AFTER));
     }
 
     @Test
@@ -239,15 +187,8 @@ public class ArrayListTest {
         arrayList.add(new Student("Israel"));
         arrayList.add(reference);
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.AFTER);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
-        assertEquals(arrayList.getAt(2).getName(), "Francisco");
-        assertEquals(arrayList.getAt(3).getName(), "Lupita");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference, new Student("Lupita"),ArrayList.InsertPosition.AFTER));
     }
 
     @Test
@@ -260,15 +201,8 @@ public class ArrayListTest {
         arrayList.add(reference);
         arrayList.add(new Student("Francisco"));
 
-        // When:
-        arrayList.insert(reference, new Student("Lupita"), ArrayList.InsertPosition.AFTER);
-
-        // Then:
-        assertEquals(4, arrayList.size());
-        assertEquals(arrayList.getAt(0).getName(), "Ivan");
-        assertEquals(arrayList.getAt(1).getName(), "Israel");
-        assertEquals(arrayList.getAt(2).getName(), "Lupita");
-        assertEquals(arrayList.getAt(3).getName(), "Francisco");
+        // When - Then:
+        assertThrows(NoSuchElementException.class,()->arrayList.insert(reference, new Student("Lupita"),ArrayList.InsertPosition.AFTER));
     }
 
     @Test
